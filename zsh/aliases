@@ -1,0 +1,18 @@
+# directories
+alias code='cd ~/code'
+alias store='cd ~/Work/storefront'
+
+# commands
+alias aliases='vim ~/code/dotfiles/zsh/aliases'
+alias so='source ~/code/dotfiles/zsh/aliases'
+alias v='vim'
+alias vi='vim'
+
+
+# git
+alias m='git checkout master'
+
+# docker
+alias dc='docker-compose'
+alias dcs='docker-compose stop;'
+alias dcr='docker-compose stop; docker-compose up -d app;'
