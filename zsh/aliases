@@ -4,7 +4,10 @@ alias store='cd ~/Work/storefront'
 
 # commands
 alias aliases='vim ~/code/dotfiles/zsh/aliases'
+alias c='clear'
+alias e='exit'
 alias so='source ~/code/dotfiles/zsh/aliases'
+alias notes='vim ~/notes.md'
 alias v='vim'
 alias vi='vim'
 
@@ -14,5 +17,10 @@ alias m='git checkout master'
 
 # docker
 alias dc='docker-compose'
-alias dcs='docker-compose stop;'
-alias dcr='docker-compose stop; docker-compose up -d app;'
+alias dcS='docker-compose stop;'
+alias dcs='docker-compose ps;'
+alias dcR='docker-compose stop; docker-compose up -d app;'
+alias dcu='docker-compose up -d app;'
+alias dcT='docker-compose run --rm test bundle exec rspec'
+alias test-bash='docker-compose run --rm test bash'
+alias app-bash='docker-compose run --rm app bash'
