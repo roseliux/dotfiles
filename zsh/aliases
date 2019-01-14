@@ -1,9 +1,11 @@
 # directories
 alias code='cd ~/code'
-alias store='cd ~/Work/storefront'
+alias bouqs='cd ~/Work/storefront'
+alias FrontEnd='cd ~/code/FrontEnd'
 
 # commands
 alias aliases='vim ~/code/dotfiles/zsh/aliases'
+alias u='cd ..'
 alias c='clear'
 alias e='exit'
 alias so='source ~/code/dotfiles/zsh/aliases'
@@ -14,6 +16,7 @@ alias vi='vim'
 
 # git
 alias m='git checkout master'
+alias gpm='git pull origin master'
 
 # docker
 alias dc='docker-compose'
@@ -21,6 +24,9 @@ alias dcS='docker-compose stop;'
 alias dcs='docker-compose ps;'
 alias dcR='docker-compose stop; docker-compose up -d app;'
 alias dcu='docker-compose up -d app;'
-alias dcT='docker-compose run --rm test bundle exec rspec'
+alias dcud='docker-compose up -d'
+alias dcT='docker-compose run --rm test bundle exec rspec --format documentation'
+alias dcrc='docker-compose run --rm app bundle exec rails console'
 alias test-bash='docker-compose run --rm test bash'
 alias app-bash='docker-compose run --rm app bash'
+alias clean-dsync='docker-compose stop; docker-sync stop; docker-sync clean; docker-sync start;'
