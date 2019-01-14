@@ -1,8 +1,10 @@
 " Authors: Rocela Durazo
 " Description: Vim configuration file
- 
+
 "------------------------------------------------------------
+runtime macros/matchit.vim
 " Enable syntax highlighting
+colo desert
 syntax on
 
 "------------------------------------------------------------
@@ -25,32 +27,34 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
- 
- 
+
 "------------------------------------------------------------
 " Mappings
 "
 " Useful mappings
-
+" Use spacebar to repeat last command
+nore <Space> .
+" Use . as :
+nore . :
 let mapleader = ","
 
-" Maps 
+" Maps
 nmap <leader>vr :tabe $MYVIMRC<cr>
 nmap <leader>so :source $MYVIMRC<cr>
+
+" Dismiss search highlight
+nmap <Leader><Space> :nohl<cr>
+" Quick save and quit
+nmap <leader>w :w<cr>
+nmap <leader>s :w<cr>
+nmap <leader>q :q<cr>
+nmap <leader>wq :wq<cr>
 
 " Command aliases for typoed commands (accidentally holding shift too long)
 command! Q q " Bind :Q to :q
@@ -58,17 +62,27 @@ command! Qall qall
 command! QA qall
 command! E e
 
+" Navigation keymaps
+" Fast jump
+nmap J 5j
+nmap K 5k
+xmap J 5j
+xmap K 5k
+" Jump through lines
+nnoremap j gj
+nnoremap k gk
+
 "------------------------------------------------------------
 " setup
-set number 		" line number
+set number     " line number
 set numberwidth=3
-set textwidth=80
+set textwidth=100
 set colorcolumn=+1
 set backupdir=~/.tmp
 set directory=~/.tmp    " Don't clutter my dirs up with swp and tmp files
-set history=500		" keep 500 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
+set history=500    " keep 500 lines of command line history
+set ruler    " show the cursor position all the time
+set showcmd    " display incomplete commands
 
 " Softtabs, 2 spaces
 set tabstop=2
@@ -81,3 +95,29 @@ set expandtab
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
+
+" Use ack instead of grep
+set grepprg=ack
+
+"" Command-P
+set wildignore+=coverage*
+set wildignore+=*/tmp/*
+set wildignore+=*/node_modules/*
+set wildignore+=public/*
+let g:CommandTMaxHeight=15
+let g:ctrlp_custom_ignore = 'node_modules'
+
+"" NERDTree
+"" Find current file in NERDTree
+nnoremap <Leader>hf :NERDTreeFind<CR>
+"" Open NERDTree
+nnoremap <Leader>n :NERDTreeToggle<CR>
+
+"" Search configuration
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Delete trailing whitespaces on save
+autocmd BufWritePre * :%s/\s\+$//e
