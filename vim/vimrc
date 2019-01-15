@@ -38,10 +38,8 @@ filetype plugin indent on    " required
 " Mappings
 "
 " Useful mappings
-" Use spacebar to repeat last command
-nore <Space> .
-" Use . as :
-nore . :
+"Use ; as :
+nore ; :
 let mapleader = ","
 
 " Maps
