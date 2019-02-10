@@ -123,6 +123,8 @@ POWERLEVEL9K_VCS_MODIFIED_FOREGROUND="yellow"
 POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND="yellow"
 POWERLEVEL9K_VCS_GIT_GITHUB_ICON=$'\uF408 '
 
+POWERLEVEL9K_APPLE_ICON="👩🏻‍💻"
+
 POWERLEVEL9K_MODE='nerdfont-complete'
 source ~/code/dotfiles/zsh/themes/powerlevel9k/powerlevel9k.zsh-theme
 
