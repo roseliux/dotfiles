@@ -108,5 +108,5 @@ export PATH="/usr/local/opt/gettext/bin:$PATH"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 POWERLEVEL9K_MODE='nerdfont-complete'
-source ~/code/dotfiles/zsh/themes/powerlevel9k.zsh-theme
+source ~/code/dotfiles/zsh/themes/powerlevel9k/powerlevel9k.zsh-theme
 
