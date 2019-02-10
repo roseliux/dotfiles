@@ -1,7 +1,8 @@
 # directories
-alias code='cd ~/code'
+alias codep='cd ~/code'
 alias bouqs='cd ~/Work/storefront'
 alias FrontEnd='cd ~/code/FrontEnd'
+alias training='cd ~/code/training-app'
 
 # commands
 alias aliases='vim ~/code/dotfiles/zsh/aliases'
@@ -12,11 +13,13 @@ alias so='source ~/code/dotfiles/zsh/aliases'
 alias notes='vim ~/notes.md'
 alias v='vim'
 alias vi='vim'
-
+alias mvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 
 # git
 alias m='git checkout master'
+alias dev='git checkout dev'
 alias gpm='git pull origin master'
+alias gco='git checkout'
 
 # docker
 alias dc='docker-compose'
@@ -25,8 +28,16 @@ alias dcs='docker-compose ps;'
 alias dcR='docker-compose stop; docker-compose up -d app;'
 alias dcu='docker-compose up -d app;'
 alias dcud='docker-compose up -d'
-alias dcT='docker-compose run --rm test bundle exec rspec --format documentation'
-alias dcrc='docker-compose run --rm app bundle exec rails console'
-alias test-bash='docker-compose run --rm test bash'
-alias app-bash='docker-compose run --rm app bash'
-alias clean-dsync='docker-compose stop; docker-sync stop; docker-sync clean; docker-sync start;'
+alias dcT='docker-compose run --rm test bundle exec rspec -fd'
+alias dc-railsc='docker-compose run --rm app bundle exec rails console'
+alias dc-test-bash='docker-compose run --rm test bash'
+alias dc-app-bash='docker-compose run --rm app bash'
+alias dc-bundle='docker-compose run --rm app bundle'
+alias restart-dsync='docker-compose stop; docker-sync stop; docker-sync clean; docker-sync start;'
+alias clean-dsync='docker-compose stop; docker-sync stop; docker-sync clean;'
+alias test-logs='docker-compose exec app tail -f log/test.log'
+alias dca='docker attach bouqs_app'
+
+# rubocop
+alias rubo='rubocop'
+alias ruborspec='rubocop --require rubocop-rspec'
