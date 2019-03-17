@@ -94,7 +94,7 @@ nmap <S-Tab> gT
 " setup
 set number     " line number
 set numberwidth=3
-set textwidth=80
+set textwidth=100
 set colorcolumn=+1
 set backupdir=~/.tmp
 set directory=~/.tmp    " Don't clutter my dirs up with swp and tmp files
@@ -156,3 +156,9 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_haml_checkers = ['haml_lint']
 let g:syntastic_ruby_checkers = ['rubocop']
 
+" RSpec.vim mappings
+let g:rspec_command = "!rspec -fd {spec}"
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
