@@ -3,13 +3,12 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/rdurazo/.oh-my-zsh"
-
+export TERM="xterm-256color"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -36,7 +35,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -76,6 +75,7 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
+export EDITOR='vim'
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
@@ -128,3 +128,6 @@ POWERLEVEL9K_APPLE_ICON="👩🏻‍💻"
 POWERLEVEL9K_MODE='nerdfont-complete'
 source ~/code/dotfiles/zsh/themes/powerlevel9k/powerlevel9k.zsh-theme
 
+
+bindkey "[C" forward-word
+bindkey "[D" backward-word
