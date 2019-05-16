@@ -3,9 +3,7 @@
 
 "------------------------------------------------------------
 " Enable syntax highlighting
-"colo desert
-colorscheme codedark
-
+colorscheme dracula
 syntax on
 
 "------------------------------------------------------------
@@ -13,7 +11,8 @@ syntax on
 set nocompatible              " be iMproved, required
 filetype off                  " required
 runtime macros/matchit.vim
-
+set gfn=Monaco:h15
+set linespace=2
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -29,6 +28,7 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-dispatch'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
@@ -38,6 +38,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'szw/vim-tags'
+Plugin 'wikitopian/hardmode'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -117,6 +119,9 @@ set nojoinspaces
 
 " Use ack instead of grep
 set grepprg=ack
+" keybinding for Ack!
+nnoremap <Leader>f :Ack<Space>
+nnoremap <Leader>p :AckFile<Space>
 
 "" Command-P
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
@@ -125,6 +130,11 @@ set wildignore+=*/tmp/*
 set wildignore+=*/node_modules/*
 set wildignore+=public/*
 let g:CommandTMaxHeight=15
+"" Ctags + Ctrlp
+ " ctags optimization
+set autochdir
+set tags=tags;
+nnoremap <Leader>. :CtrlPTag<cr>
 
 "" NERDTree
 ""let NERDTreeShowHidden=1
@@ -157,8 +167,32 @@ let g:syntastic_haml_checkers = ['haml_lint']
 let g:syntastic_ruby_checkers = ['rubocop']
 
 " RSpec.vim mappings
-let g:rspec_command = "!rspec -fd {spec}"
+let g:rspec_command = "rspec -fd {spec}"
+"let g:rspec_command = "Dispatch! docker-compose run --rm test bundle exec rspec -fd {spec}"
+
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
+
+" HardMode
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+
+
+"functions"
+function! GotoJump()
+  jumps
+  let j = input("Please select your jump: ")
+  if j != ''
+    let pattern = '\v\c^\+'
+    if j =~ pattern
+      let j = substitute(j, pattern, '', 'g')
+      execute "normal " . j . "\<c-i>"
+    else
+      execute "normal " . j . "\<c-o>"
+    endif
+  endif
+endfunction
+
+nmap <Leader>j :call GotoJump()<CR>
