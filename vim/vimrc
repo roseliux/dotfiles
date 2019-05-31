@@ -40,6 +40,7 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'szw/vim-tags'
 Plugin 'wikitopian/hardmode'
+Plugin 'rhysd/git-messenger.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -118,6 +119,7 @@ set expandtab
 set nojoinspaces
 
 " Use ack instead of grep
+let g:ackprg = 'ag --nogroup --nocolor --column'
 set grepprg=ack
 " keybinding for Ack!
 nnoremap <Leader>f :Ack<Space>
@@ -132,8 +134,8 @@ set wildignore+=public/*
 let g:CommandTMaxHeight=15
 "" Ctags + Ctrlp
  " ctags optimization
-set autochdir
-set tags=tags;
+""set autochdir
+set tags=tags,~/.git/tags;
 nnoremap <Leader>. :CtrlPTag<cr>
 
 "" NERDTree
@@ -159,16 +161,16 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_haml_checkers = ['haml_lint']
 let g:syntastic_ruby_checkers = ['rubocop']
 
 " RSpec.vim mappings
-let g:rspec_command = "rspec -fd {spec}"
-"let g:rspec_command = "Dispatch! docker-compose run --rm test bundle exec rspec -fd {spec}"
+"let g:rspec_command = "rspec -fd {spec}"
+let g:rspec_command = "Dispatch docker-compose run --rm test bundle exec rspec {spec}"
 
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
@@ -176,9 +178,8 @@ map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
 " HardMode
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
-
+"autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+"nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
 "functions"
 function! GotoJump()
