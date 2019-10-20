@@ -108,8 +108,8 @@ export PATH="/usr/local/opt/gettext/bin:$PATH"
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status rvm time)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs rvm status)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 POWERLEVEL9K_RVM_BACKGROUND="black"
 POWERLEVEL9K_RVM_FOREGROUND="249"
