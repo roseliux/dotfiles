@@ -3,7 +3,10 @@
 
 "------------------------------------------------------------
 " Enable syntax highlighting
+set termguicolors
+let g:dracula_italic = 0
 colorscheme dracula
+highlight Normal ctermbg=None
 syntax on
 
 "------------------------------------------------------------
@@ -32,15 +35,18 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'szw/vim-tags'
-Plugin 'wikitopian/hardmode'
+"Plugin 'wikitopian/hardmode'
 Plugin 'rhysd/git-messenger.vim'
+Plugin 'yegappan/mru'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'christoomey/vim-tmux-runner'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -55,7 +61,9 @@ let mapleader = ","
 
 " Maps
 nmap <leader>vr :tabe $MYVIMRC<cr>
+nmap <leader>tm :tabe ~/.tmux.conf<cr>
 nmap <leader>so :source $MYVIMRC<cr>
+nmap <Leader>bi :source ~/.vimrc<cr>:PluginInstall<cr>
 
 " Dismiss search highlight
 nmap <Leader><Space> :nohl<cr>
@@ -82,6 +90,9 @@ xmap K 5k
 " Jump through lines
 nnoremap j gj
 nnoremap k gk
+
+" Copies the visually selected text, Then starts a search command and pastes the copied text into the search.
+vnoremap // y/<C-R>"<CR>
 
 " Window control
 map <C-j> <C-W>j
@@ -119,9 +130,10 @@ set expandtab
 set nojoinspaces
 
 " Use ack instead of grep
-let g:ackprg = 'ag --nogroup --nocolor --column'
+""let g:ackprg = 'ag --nogroup --nocolor --column'
 set grepprg=ack
 " keybinding for Ack!
+vnoremap <Leader>f y:Ack<Space><C-R>"<CR>
 nnoremap <Leader>f :Ack<Space>
 nnoremap <Leader>p :AckFile<Space>
 
@@ -132,20 +144,26 @@ set wildignore+=*/tmp/*
 set wildignore+=*/node_modules/*
 set wildignore+=public/*
 let g:CommandTMaxHeight=15
+
 "" Ctags + Ctrlp
  " ctags optimization
 ""set autochdir
 set tags=tags,~/.git/tags;
 nnoremap <Leader>. :CtrlPTag<cr>
+if executable('ag')
+  let g:ctrlp_user_command = ['ag %s --files-with-matches -g ""']
+  let g:ctrlp_user_command += ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+endif
 
-"" NERDTree
-""let NERDTreeShowHidden=1
-"" Fix G^
+"" NERDTree configuration
+let g:NERDTreeWinPos = "right"
+"let NERDTreeShowHidden=1
+" Fix G^
 let g:NERDTreeNodeDelimiter = "\u00a0"
 "" Find current file in NERDTree
-nnoremap <Leader>hf :NERDTreeFind<CR>
+nnoremap <Leader>n :NERDTreeFind<CR>
 "" Open NERDTree
-nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>k :NERDTreeToggle<CR>
 
 "" Search configuration
 set hlsearch
@@ -164,18 +182,38 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
 let g:syntastic_haml_checkers = ['haml_lint']
 let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'eslint'
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
 
 " RSpec.vim mappings
 "let g:rspec_command = "rspec -fd {spec}"
-let g:rspec_command = "Dispatch docker-compose run --rm test bundle exec rspec {spec}"
+let g:rspec_command = "VtrSendCommandToRunner! dcrspec {spec}"
 
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
+
+""map <Leader>t :w<CR>:Dispatch docker-compose run --rm test bundle exec rspec %<CR>
+""map <Leader>s :w<CR>:execute 'Dispatch docker-compose run --rm test bundle exec rspec %:'.line(".")<CR>
+""map <Leader>rc :Dispatch rubocop %<CR>
+map <Leader>rf :Dispatch! rubocop --safe-auto-correct %<CR>
+nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb'}<cr>
+nnoremap <leader>rc :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'dcrailsc'}<cr>
+nnoremap <leader>dca :VtrOpenRunner {'orientation': 'v', 'percentage': 20, 'cmd': 'dca'}<cr>
+nnoremap <leader>gst :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'gst'}<cr>
+
+"map <Leader>s :call RunNearestSpec()<CR>
+"map <Leader>l :call RunLastSpec()<CR>
+"map <Leader>a :call RunAllSpecs()<CR>
 
 " HardMode
 "autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
@@ -197,3 +235,9 @@ function! GotoJump()
 endfunction
 
 nmap <Leader>j :call GotoJump()<CR>
+
+"" Open MRU.vim to see the recently open files
+map <leader>h :MRU<CR>
+
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
