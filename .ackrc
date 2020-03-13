@@ -1,3 +1,5 @@
 --color
 --smart-case
+--ignore-dir=log
+--ignore-file=match:/[.]log$
 
