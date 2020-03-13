@@ -56,7 +56,6 @@ filetype plugin indent on    " required
 "
 " Useful mappings
 "Use ; as :
-nore ; :
 let mapleader = ","
 
 " Maps
@@ -68,12 +67,14 @@ nmap <Leader>bi :source ~/.vimrc<cr>:PluginInstall<cr>
 " Dismiss search highlight
 nmap <Leader><Space> :nohl<cr>
 " Quick save and quit
+nmap <leader>, :w<cr>
 nmap <leader>w :w<cr>
 nmap <leader>s :w<cr>
 nmap <leader>q :q<cr>
 nmap <leader>wq :wq<cr>
 nmap <leader>r :Rails<cr>
 nmap <leader>pr ibinding.pry<Esc>
+nmap <leader>dg idebugger;<Esc>
 
 " Command aliases for typoed commands (accidentally holding shift too long)
 command! Q q " Bind :Q to :q
@@ -115,7 +116,56 @@ set directory=~/.tmp    " Don't clutter my dirs up with swp and tmp files
 set history=500    " keep 500 lines of command line history
 set ruler    " show the cursor position all the time
 set showcmd    " display incomplete commands
-autocmd BufNewFile,BufRead *.decorator set syntax=ruby
+
+" Highlight current word matches
+autocmd CursorMoved * silent! exe printf('match SpellLocal /\<%s\>/', expand('<cword>'))
+hi clear SpellLocal
+hi SpellLocal cterm=underline
+" File type detection
+
+" Ruby
+au BufNewFile,BufRead *.rb,*.rbw,*.gem,*.gemspec set filetype=ruby
+
+" Rakefile
+au BufNewFile,BufRead [rR]akefile,*.rake         set filetype=ruby
+
+" IRB config
+au BufNewFile,BufRead .irbrc,irbrc               set filetype=ruby
+
+" Rackup
+au BufNewFile,BufRead *.ru                       set filetype=ruby
+
+" Capistrano
+au BufNewFile,BufRead Capfile,*.cap              set filetype=ruby
+
+" Bundler
+au BufNewFile,BufRead Gemfile                    set filetype=ruby
+
+" Autotest
+au BufNewFile,BufRead .autotest                  set filetype=ruby
+
+" JBuilder
+au BufNewFile,BufRead *.jbuilder                 set filetype=ruby
+
+" eRuby
+au BufNewFile,BufRead *.erb,*.rhtml              set filetype=eruby
+
+" God
+au BufNewFile,BufRead *.god                      set filetype=ruby
+
+" rails-decorators
+au BufNewFile,BufRead *.decorator                set filetype=ruby
+
+" Scss
+au BufNewFile,BufRead *.scss                     set filetype=css
+
+
+" File type tab settings
+autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 expandtab softtabstop=2
+autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab softtabstop=2
+autocmd FileType eruby set tabstop=4 shiftwidth=4 expandtab softtabstop=4
+autocmd FileType javascript set tabstop=4 shiftwidth=4 expandtab softtabstop=4
+autocmd FileType css set tabstop=4 shiftwidth=4 expandtab softtabstop=4
 
 " Softtabs, 2 spaces
 set tabstop=2
@@ -164,6 +214,8 @@ let g:NERDTreeNodeDelimiter = "\u00a0"
 nnoremap <Leader>n :NERDTreeFind<CR>
 "" Open NERDTree
 nnoremap <Leader>k :NERDTreeToggle<CR>
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "" Search configuration
 set hlsearch
@@ -183,11 +235,11 @@ let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
-let g:syntastic_haml_checkers = ['haml_lint']
+" let g:syntastic_haml_checkers = ['haml_lint']
 let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = 'eslint'
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exe = 'eslint'
 let g:syntastic_error_symbol = '❌'
 let g:syntastic_style_error_symbol = '⁉️'
 let g:syntastic_warning_symbol = '⚠️'
@@ -234,7 +286,7 @@ function! GotoJump()
   endif
 endfunction
 
-nmap <Leader>j :call GotoJump()<CR>
+" nmap <Leader>j :call GotoJump()<CR>
 
 "" Open MRU.vim to see the recently open files
 map <leader>h :MRU<CR>
