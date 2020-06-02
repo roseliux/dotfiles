@@ -1,5 +1,6 @@
 alias \$=''
 alias mkdir="command mkdir -p"
+alias vim='nvim'
 
 # directories
 alias codepath='cd ~/code'
@@ -23,6 +24,7 @@ alias vs='vagrant ssh'
 
 # rails
 alias rs='rails s'
+alias rsd='rails s -d'
 alias rc='rails c'
 alias rr='rails routes'
 alias rrg='rails routes | grep'
@@ -33,8 +35,20 @@ alias rtw='rails --tasks | grep workarea'
 alias rsup='rails workarea:services:up;'
 alias rsdown='rails workarea:services:down'
 alias rsrestart='rsdown; rsup'
-alias wadecorator='rails g workarea:decorator'
-alias waoverride='rails g workarea:override'
+alias decorate='rails g workarea:decorator'
+alias override='rails g workarea:override'
+
+# groupsite
+alias groupsite='cd ~/code/docker-staging'
+alias drun='cd ~/code/docker-staging; ./drun dev; ./drun test'
+alias dlog='cd ~/code/docker-staging; ./dlog'
+alias dstop='cd ~/code/docker-staging; docker-compose stop'
+alias dtest='cd ~/code/docker-staging; docker-compose up -d test_db'
+alias dattach='docker attach gs3'
+alias dbash='docker exec -it gs3 bash'
+alias drailsc='docker exec -it gs3 bundle exec rails c'
+alias dcrestart='docker-compose down; ./drun dev; ./drun test'
+alias dbash='docker exec -it gs3 bash'
 
 # linters
 alias jslint='yarn run eslint app/assets/javascripts/**/*.js  --config eslintrc.json --fix'
@@ -65,21 +79,29 @@ alias lc='colorls'
 alias m='git checkout master'
 alias stg='git checkout staging'
 alias gp='git pull'
-alias gpm='git pull origin master'
 alias gco='git checkout'
+alias gcm='git commit --verbose'
 alias grenameb='git branch -m'
 alias gredocm='git commit --amend'
 alias gundocm='git reset HEAD~ '
+alias gpr='gh pr create -f -w'
+gqrb() {
+    git set-upstream
+    git fetch origin "$@:$@" && git pull && git rebase "$@"
+}
 
 # docker
 alias dc='docker-compose'
 alias dps='docker ps'
 alias dcs='docker-compose ps;'
 alias dcprune='docker system prune -a'
+alias freshdocker='docker build --no-cache - < Dockerfile'
+alias murderdocker='docker-compose down && docker-sync stop && docker image rm -f $(docker images -a -q) && docker rm $(docker ps -a -q) && docker system prune --volumes -a -f'
+alias dcdown='docker-compose down'
 alias dcstop='docker-compose stop; docker-sync stop;'
 alias dcstart='docker-compose up -d app; docker-sync start;'
 alias dcrestart='docker-compose stop; docker-compose up -d app;'
-alias dcup="rm tmp/pid/server.pid; docker-compose up"
+alias dcup="docker-compose up -d app"
 alias dcrspec='docker-compose run --rm test bundle exec rspec'
 alias dcrailsc='docker-compose run --rm app bundle exec rails console'
 alias dcroutes='docker-compose run --rm app bundle exec rails routes'
@@ -90,6 +112,7 @@ alias dcbash='docker-compose run --rm app bash'
 alias dcbundle='docker-compose run --rm app bundle'
 alias dsrestart='docker-sync stop; docker-sync start;'
 alias dsclean='docker-compose stop; docker-sync stop; docker-sync clean;'
+alias dsl='docker-sync logs'
 alias test-logs='docker-compose exec app tail -f log/test.log'
 alias dev-logs='docker-compose exec app tail -f log/development.log'
 alias dca='docker attach bouqs_app'
