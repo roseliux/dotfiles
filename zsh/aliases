@@ -3,12 +3,12 @@ alias mkdir="command mkdir -p"
 alias vim='nvim'
 
 # directories
-alias codepath='cd ~/code'
-alias dotfiles='cd ~/code/dotfiles'
+alias codepath='cd ~/Code'
+alias dotfiles='cd ~/Code/dotfiles'
 alias bouqs='cd ~/Work/storefront'
-alias amherst='cd ~/code/amherst'
-alias pitstop='cd ~/code/amherst/pit_stop_usa'
-alias tlretro='cd ~/code/amherst/tlretro'
+alias amherst='cd ~/Code/amherst'
+alias pitstop='cd ~/Code/pit_stop_usa'
+alias tlretro='cd ~/Code/amherst/tlretro'
 
 # ips
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -22,6 +22,7 @@ alias vhalt='vagrant halt'
 # rails
 alias rs='bundle exec rails s'
 alias rc='bundle exec rails c'
+alias rails='bundle exec rails'
 
 # workarea
 alias wtask='bundle exec rails --tasks | grep workarea'
@@ -50,14 +51,14 @@ alias audit-check='bundle audit check --update'
 
 # commands
 alias hosts='sudo vim /private/etc/hosts'
-alias aliases='vim ~/code/dotfiles/zsh/aliases'
+alias aliases='vim ~/Code/dotfiles/zsh/aliases'
 alias tmuxfile='vim ~/.tmux.conf'
 alias vimfile='vim ~/.vimrc'
 alias nvimfile='vim ~/.config/nvim/init.vim'
 alias u='cd ..'
 alias c='clear'
 alias e='exit'
-alias so='source ~/code/dotfiles/zsh/aliases'
+alias so='source ~/Code/dotfiles/zsh/aliases'
 alias notes='vim ~/notes.md'
 alias v='vim'
 alias vi='vim'
@@ -86,7 +87,7 @@ gqrb() {
 alias dc='docker-compose'
 alias dps='docker ps'
 alias dcs='docker-compose ps;'
-alias dcprune='docker system prune -a'
+alias dprune='docker system prune -a'
 alias freshdocker='docker build --no-cache - < Dockerfile'
 alias murderdocker='docker-compose down && docker-sync stop && docker image rm -f $(docker images -a -q) && docker rm $(docker ps -a -q) && docker system prune --volumes -a -f'
 alias dcdown='docker-compose down'
