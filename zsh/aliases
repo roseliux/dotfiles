@@ -7,7 +7,7 @@ alias codepath='cd ~/Code'
 alias dotfiles='cd ~/Code/dotfiles'
 alias bouqs='cd ~/Work/storefront'
 alias amherst='cd ~/Code/amherst'
-alias pitstop='cd ~/Code/pit_stop_usa'
+alias pitstop='cd ~/Code/pit-stop-usa'
 alias tlretro='cd ~/Code/amherst/tlretro'
 
 # ips
