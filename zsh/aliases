@@ -6,9 +6,7 @@ alias vim='nvim'
 alias code='cd ~/Code'
 alias dotfiles='cd ~/Code/dotfiles'
 alias bouqs='cd ~/Code/storefront'
-alias amherst='cd ~/Code/amherst'
 alias pitstop='cd ~/Code/pit-stop-usa'
-alias tlretro='cd ~/Code/amherst/tlretro'
 
 # ips
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
