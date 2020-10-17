@@ -34,16 +34,6 @@ alias wrestart='wstop; wup'
 alias woverride='bundle exec rails g workarea:override'
 alias wdecorator='bundle exec rails g workarea:decorator'
 
-groupsite
-alias groupsite='cd ~/Code/docker-staging'
-alias grun='cd ~/Code/docker-staging; ./drun dev;'
-alias gstop='cd ~/Code/docker-staging; docker-compose stop'
-alias grestart='gstop; grun'
-alias dlog='cd ~/Code/docker-staging; ./dlog'
-alias gattach='docker attach gs3'
-alias gbash='docker exec -it gs3 bash'
-alias grailsc='docker exec -it gs3 bundle exec rails c'
-
 # linters
 alias jslint='yarn run eslint app/assets/javascripts/**/*.js  --config eslintrc.json --fix'
 alias csslint='yarn run stylelint app/assets/stylesheets/**/*.scss --config stylelintrc.json --log-level error'
