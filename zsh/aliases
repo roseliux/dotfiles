@@ -3,9 +3,9 @@ alias mkdir="command mkdir -p"
 alias vim='nvim'
 
 # directories
-alias codepath='cd ~/Code'
+alias code='cd ~/Code'
 alias dotfiles='cd ~/Code/dotfiles'
-alias bouqs='cd ~/Work/storefront'
+alias bouqs='cd ~/Code/storefront'
 alias amherst='cd ~/Code/amherst'
 alias pitstop='cd ~/Code/pit-stop-usa'
 alias tlretro='cd ~/Code/amherst/tlretro'
@@ -15,13 +15,14 @@ alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 
 # vagrant
-alias vssh='cd ~/code/amherst; vagrant up; vagrant ssh'
+alias vssh='vagrant up; vagrant ssh'
 alias vup='vagrant up'
 alias vhalt='vagrant halt'
 
 # rails
 alias rs='bundle exec rails s'
 alias rc='bundle exec rails c'
+alias rt='bundle exec rails test'
 alias rails='bundle exec rails'
 
 # workarea
@@ -33,12 +34,12 @@ alias wrestart='wstop; wup'
 alias woverride='bundle exec rails g workarea:override'
 alias wdecorator='bundle exec rails g workarea:decorator'
 
-# groupsite
-alias groupsite='cd ~/code/docker-staging'
-alias grun='cd ~/code/docker-staging; ./drun dev;'
-alias gstop='cd ~/code/docker-staging; docker-compose stop'
+groupsite
+alias groupsite='cd ~/Code/docker-staging'
+alias grun='cd ~/Code/docker-staging; ./drun dev;'
+alias gstop='cd ~/Code/docker-staging; docker-compose stop'
 alias grestart='gstop; grun'
-alias dlog='cd ~/code/docker-staging; ./dlog'
+alias dlog='cd ~/Code/docker-staging; ./dlog'
 alias gattach='docker attach gs3'
 alias gbash='docker exec -it gs3 bash'
 alias grailsc='docker exec -it gs3 bundle exec rails c'
@@ -96,7 +97,7 @@ alias dcdown='docker-compose down'
 alias dcrun='docker-compose up -d app; docker-sync start;'
 alias dcstop='docker-compose stop; docker-sync stop;'
 alias dcrestart='docker-compose stop; docker-compose up -d app;'
-alias dca='docker attach bouqs_app'
+alias dcattach='docker attach bouqs_app'
 alias dcbash='docker-compose run --rm app bash'
 alias dcbundle='docker-compose run --rm app bundle'
 alias dcrspec='docker-compose run --rm test bundle exec rspec'
